@@ -134,4 +134,14 @@ public class HelloWorldTest {
         Integer statusCode = response.getStatusCode();
         System.out.println("Status code is: " + statusCode);
     }
+
+    @Test
+    public void testGetStatusCode404() {
+        Response response = RestAssured
+                .get("https://playground.learnqa.ru/api/get_something")
+                .andReturn();
+
+        Integer statusCode = response.getStatusCode();
+        System.out.println("Status code is: " + statusCode);
+    }
 }
