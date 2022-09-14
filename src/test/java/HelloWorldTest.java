@@ -157,4 +157,17 @@ public class HelloWorldTest {
         Integer statusCode = response.getStatusCode();
         System.out.println("Status code is: " + statusCode);
     }
+
+    @Test
+    public void testGetRedirectWithTrueFollow() {
+        Response response = RestAssured
+                .given()
+                .redirects()
+                .follow(true)
+                .get("https://playground.learnqa.ru/api/get_303")
+                .andReturn();
+
+        Integer statusCode = response.getStatusCode();
+        System.out.println("Status code is: " + statusCode);
+    }
 }
