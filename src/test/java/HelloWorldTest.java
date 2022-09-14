@@ -204,4 +204,22 @@ public class HelloWorldTest {
         String locationHeader = response.getHeader("Location");
         System.out.println("Location header is: " + locationHeader);
     }
+
+    @Test
+    public void testGetAuthCookie() {
+        Map<String, String> data = new HashMap<>();
+        data.put("login", "secret_login");
+        data.put("password", "secret_pass");
+
+        Response response = RestAssured
+                .given()
+                .body(data)
+                .when()
+                .post("https://playground.learnqa.ru/api/get_auth_cookie")
+                .andReturn();
+
+        String responseCookie = response.getCookie("auth_cookie");
+        System.out.println(responseCookie);
+    }
+
 }
