@@ -38,4 +38,23 @@ public class HelloWorldTest {
 
         response.prettyPrint();
     }
+
+    @Test
+    public void testRestAssuredParseJson() {
+        Map<String, String> params = new HashMap<>();
+        params.put("name", "John Rambo");
+
+        JsonPath response = RestAssured
+                .given()
+                .queryParams(params)
+                .get("https://playground.learnqa.ru/api/hello")
+                .jsonPath();
+
+        String name = response.get("answer2");
+        if (name == null) {
+            System.out.println("The key 'answer2' is absent");
+        } else {
+            System.out.println(name);
+        }
+    }
 }
