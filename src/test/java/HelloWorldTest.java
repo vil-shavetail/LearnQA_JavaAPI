@@ -1,3 +1,4 @@
+import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
 import io.restassured.RestAssured;
@@ -169,5 +170,24 @@ public class HelloWorldTest {
 
         Integer statusCode = response.getStatusCode();
         System.out.println("Status code is: " + statusCode);
+    }
+
+    @Test
+    public void testGetShowAllHeaders() {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("myHeader1", "myValue1");
+        headers.put("myHeader2", "myValue2");
+
+        Response response = RestAssured
+                .given()
+                .headers(headers)
+                .when()
+                .get("https://playground.learnqa.ru/api/show_all_headers")
+                .andReturn();
+
+        response.prettyPrint();
+
+        Headers responseHeaders = response.getHeaders();
+        System.out.println(responseHeaders);
     }
 }
