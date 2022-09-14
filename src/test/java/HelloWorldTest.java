@@ -89,6 +89,7 @@ public class HelloWorldTest {
 
         response.print();
     }
+
     @Test
     public void testCheckTypeWithPostAndSetParamsByBodyAsJSON() {
         Response response = RestAssured
@@ -112,5 +113,15 @@ public class HelloWorldTest {
                 .andReturn();
 
         response.print();
+    }
+
+    @Test
+    public void testGetStatusCode200() {
+        Response response = RestAssured
+                .get("https://playground.learnqa.ru/api/check_type")
+                .andReturn();
+
+        Integer statusCode = response.getStatusCode();
+        System.out.println("Status code is: " + statusCode);
     }
 }
