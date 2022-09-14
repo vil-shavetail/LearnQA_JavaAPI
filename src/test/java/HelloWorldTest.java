@@ -57,4 +57,13 @@ public class HelloWorldTest {
             System.out.println(name);
         }
     }
+
+    @Test
+    public void testCheckTypeWithGet() {
+        Response response = RestAssured
+                .get("https://playground.learnqa.ru/api/check_type")
+                .andReturn();
+
+        response.prettyPrint();
+    }
 }
