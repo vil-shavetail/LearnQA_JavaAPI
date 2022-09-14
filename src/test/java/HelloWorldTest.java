@@ -190,4 +190,18 @@ public class HelloWorldTest {
         Headers responseHeaders = response.getHeaders();
         System.out.println(responseHeaders);
     }
+
+    @Test
+    public void testGetLocationHeader() {
+        Response response = RestAssured
+                .given()
+                .redirects()
+                .follow(false)
+                .when()
+                .get("https://playground.learnqa.ru/api/get_303")
+                .andReturn();
+
+        String locationHeader = response.getHeader("Location");
+        System.out.println("Location header is: " + locationHeader);
+    }
 }
