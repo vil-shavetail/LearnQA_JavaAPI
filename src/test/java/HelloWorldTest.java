@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HelloWorldTest {
@@ -252,6 +253,18 @@ public class HelloWorldTest {
                 .andReturn();
 
         responseForCheck.print();
+    }
+
+    @Test
+    public void testParseSecondMessageTextAndTimestamp() {
+        JsonPath response = RestAssured
+                .get("https://playground.learnqa.ru/api/get_json_homework")
+                .jsonPath();
+
+        List<Map<String, String>> responseList = response.getJsonObject("messages");
+        Map<String, String> secondStringMap = responseList.get(1);
+        System.out.println("The text of the second message is: " + "\"" + secondStringMap.get("message") + "\"");
+        System.out.println("The timestamp of the second message is: " + "\"" + secondStringMap.get("timestamp") +"\"");
     }
 
 }
