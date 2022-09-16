@@ -317,4 +317,44 @@ public class HelloWorldTest {
         }
         System.out.println("Quantity of the Redirects are: " + quantityOfTheRedirects);
     }
+
+    @Test
+    public void testGetToken() throws InterruptedException {
+        String requestUrl = "https://playground.learnqa.ru/ajax/api/longtime_job";
+
+        JsonPath firstResponse = RestAssured
+                .get(requestUrl)
+                .jsonPath();
+
+        String token = firstResponse.getString("token");
+        Integer seconds = firstResponse.get("seconds");
+        System.out.println("Token is: " + token);
+        System.out.println("Sleep to: " + seconds + " seconds");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("token", token);
+
+        JsonPath secondResponse = RestAssured
+                .given()
+                .queryParams(params)
+                .get(requestUrl)
+                .jsonPath();
+
+        String status = secondResponse.get("status");
+        System.out.println("The status is: " + status);
+
+        if (status.contains("Job is NOT ready")) {
+            Thread.sleep(seconds * 1000);
+            JsonPath thirdResponse = RestAssured
+                    .given()
+                    .queryParams(params)
+                    .get(requestUrl)
+                    .jsonPath();
+
+            status = thirdResponse.get("status");
+            System.out.println("The status is: " + status);
+            String result = thirdResponse.get("result");
+            System.out.println("The result is: " + result);
+        }
+    }
 }
