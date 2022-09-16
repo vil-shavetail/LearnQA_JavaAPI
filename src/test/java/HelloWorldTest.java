@@ -291,5 +291,30 @@ public class HelloWorldTest {
         String lastRedirectUrl = secondResponse.getHeader("Location");
         System.out.println("The last redirect URL is: " + lastRedirectUrl);
     }
-    
+
+    @Test
+    public void testGetQuantityOfTheRedirects() {
+        Integer statusCode = 301;
+        String redirectUrl = "https://playground.learnqa.ru/api/long_redirect";
+        Integer quantityOfTheRedirects = 0;
+        while (statusCode != 200) {
+            Response response = RestAssured
+                    .given()
+                    .redirects()
+                    .follow(false)
+                    .when()
+                    .get(redirectUrl)
+                    .andReturn();
+
+            redirectUrl = response.getHeader("Location");
+            statusCode = response.getStatusCode();
+            quantityOfTheRedirects++;
+            System.out.println("Status code is: " + statusCode);
+            if(statusCode != 200) {
+                System.out.println("The redirect URL is: " + redirectUrl);
+            }
+
+        }
+        System.out.println("Quantity of the Redirects are: " + quantityOfTheRedirects);
+    }
 }
