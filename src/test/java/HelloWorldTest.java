@@ -267,4 +267,29 @@ public class HelloWorldTest {
         System.out.println("The timestamp of the second message is: " + "\"" + secondStringMap.get("timestamp") +"\"");
     }
 
+    @Test
+    public void testGetLastRedirectUrl() {
+        Response firstResponse = RestAssured
+                .given()
+                .redirects()
+                .follow(false)
+                .when()
+                .get("https://playground.learnqa.ru/api/long_redirect")
+                .andReturn();
+
+        String firstRedirectUrl = firstResponse.getHeader("Location");
+        System.out.println("The first redirect URL is: " + firstRedirectUrl);
+
+        Response secondResponse = RestAssured
+                .given()
+                .redirects()
+                .follow(false)
+                .when()
+                .get(firstRedirectUrl)
+                .andReturn();
+
+        String lastRedirectUrl = secondResponse.getHeader("Location");
+        System.out.println("The last redirect URL is: " + lastRedirectUrl);
+    }
+    
 }
