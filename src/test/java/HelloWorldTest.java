@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class HelloWorldTest {
 
     @Test
@@ -400,5 +402,21 @@ public class HelloWorldTest {
                 break;
             }
         }
+    }
+
+    @Test
+    public void testForStatusCode200() {
+        Response response = RestAssured
+                .get("https://playground.learnqa.ru/api/map")
+                .andReturn();
+        assertEquals(200, response.statusCode(), "Unexpected status code");
+    }
+
+    @Test
+    public void testForStatusCode404() {
+        Response response = RestAssured
+                .get("https://playground.learnqa.ru/api/map2")
+                .andReturn();
+        assertEquals(404, response.statusCode(), "Unexpected status code");
     }
 }
