@@ -1,4 +1,4 @@
-package tests;
+package tests.hello;
 
 import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
