@@ -455,4 +455,10 @@ public class HelloWorldTest {
         assertTrue(cookie.containsKey("HomeWork"), "Response doesn't contain cookie with name \"HomeWork\"");
         assertTrue(cookie.containsValue("hw_value"), "Response doesn't contain HomeWork cookie with value \"hm_value\"");
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"This message has got length greater than 15", "Small phrase"})
+    public void testAssertPhraseLength(String phrase) {
+        assertTrue(phrase.length() > 15, "Expected phrase has got length less than 15 symbols");
+    }
 }
