@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HelloWorldTest {
 
@@ -442,5 +443,16 @@ public class HelloWorldTest {
         String expectedName = (name.length() > 0) ? name : "someone";
         assertEquals("Hello, " + expectedName, answer, "The answer is not expected");
 
+    }
+
+    @Test
+    public void testAssertCookie() {
+        Response responseGetCookie = RestAssured
+                .get("https://playground.learnqa.ru/api/homework_cookie")
+                .andReturn();
+
+        Map<String, String> cookie = responseGetCookie.getCookies();
+        assertTrue(cookie.containsKey("HomeWork"), "Response doesn't contain cookie with name \"HomeWork\"");
+        assertTrue(cookie.containsValue("hw_value"), "Response doesn't contain HomeWork cookie with value \"hm_value\"");
     }
 }
