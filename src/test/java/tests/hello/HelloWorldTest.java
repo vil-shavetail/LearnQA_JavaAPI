@@ -511,7 +511,27 @@ public class HelloWorldTest {
         String actualDevice = response.jsonPath().getString("device");
 
         String actualValues = "platform: " + actualPlatform + ", browser: " + actualBrowser + ", device: " + actualDevice;
+        String[] keyValuesPair = expectedValues.split(",");
+        Map<String, String> expected = new HashMap<>();
+        for (String initKey : keyValuesPair) {
+            String[] strings = initKey.split(":");
+            expected.put(strings[0].trim(), strings[1].trim());
+        }
 
-        assertEquals(expectedValues, actualValues);
+        if (!expectedValues.equals(actualValues)) {
+            if(!actualPlatform.equals(expected.get("platform"))) {
+                System.out.println("Expected value of the field platform for user-agent: {" + agent
+                        + "} is " + expected.get("platform") + " but actual value is " + actualPlatform);
+            } else if (!actualBrowser.equals(expected.get("browser"))) {
+                System.out.println("Expected value of the field browser for user-agent: {" + agent
+                        + "} is " + expected.get("browser") + " but actual value is " + actualBrowser);
+            } else if (!actualDevice.equals(expected.get("device"))) {
+                System.out.println("Expected value of the field device for user-agent: {" + agent
+                        + "} is " + expected.get("device") + " but actual value is " + actualDevice);
+            }
+        } else {
+            assertEquals(expectedValues, actualValues);
+        }
+
     }
 }
