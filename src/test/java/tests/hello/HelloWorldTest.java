@@ -8,12 +8,9 @@ import io.restassured.response.Response;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class HelloWorldTest {
 
@@ -460,5 +457,36 @@ public class HelloWorldTest {
     @ValueSource(strings = {"This message has got length greater than 15", "Small phrase"})
     public void testAssertPhraseLength(String phrase) {
         assertTrue(phrase.length() > 15, "Expected phrase has got length less than 15 symbols");
+    }
+
+    @Test
+    public void testAssertHeaders() {
+        Map<String, String> expHeaders = new HashMap<>();
+        expHeaders.put("Date", "Thu, 22 Sep 2022 11:01:18 GMT");
+        expHeaders.put("Content-Type", "application/json");
+        expHeaders.put("Content-Length", "15");
+        expHeaders.put("Connection", "keep-alive");
+        expHeaders.put("Keep-Alive", "timeout=10");
+        expHeaders.put("Server", "Apache");
+        expHeaders.put("x-secret-homework-header", "Some secret value");
+        expHeaders.put("Cache-Control", "max-age=0");
+        expHeaders.put("Expires", "Thu, 22 Sep 2022 11:01:18 GMT");
+
+        Response getHeaderResponse = RestAssured
+                .post("https://playground.learnqa.ru/api/homework_header")
+                .andReturn();
+
+        Headers headers = getHeaderResponse.getHeaders();
+        headers.asList();
+        for (int i = 0; i < headers.size(); i++) {
+            assertTrue(expHeaders.containsKey(headers.asList().get(i).getName()),
+                    "Doesn't contain expected header with name " + headers.asList().get(i).getName());
+            if (!headers.asList().get(i).getName().equals("Date") & !headers.asList().get(i).getName().equals("Expires")) {
+                assertTrue(expHeaders.containsValue(headers.asList().get(i).getValue()),
+                        "Doesn't contain expected value " + headers.asList().get(i).getValue() + " for header " + headers.asList().get(i).getName());
+            } else {
+                assertTrue(headers.asList().get(i).getValue().length() > 0);
+            }
+        }
     }
 }
