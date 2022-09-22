@@ -473,7 +473,7 @@ public class HelloWorldTest {
         expHeaders.put("Expires", "Thu, 22 Sep 2022 11:01:18 GMT");
 
         Response getHeaderResponse = RestAssured
-                .post("https://playground.learnqa.ru/api/homework_header")
+                .get("https://playground.learnqa.ru/api/homework_header")
                 .andReturn();
 
         Headers headers = getHeaderResponse.getHeaders();
