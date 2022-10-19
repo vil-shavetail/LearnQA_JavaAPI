@@ -47,4 +47,22 @@ public class ApiCoreRequests {
                 .post(url)
                 .andReturn();
     }
+
+    @Step("Try to get user details by not authorized user only with userId")
+    public Response makeGetUserDetailsRequestOnlyWithUserId(String url, int userId) {
+        return given()
+                .filter(new AllureRestAssured())
+                .get(url + userId)
+                .andReturn();
+    }
+
+    @Step("Try to get user details by authorized user and with userId")
+    public Response makeGetUserDetailsRequest(String url, String header, String cookie, int userId) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                .get("https://playground.learnqa.ru/api/user/" + userId)
+                .andReturn();
+    }
 }
