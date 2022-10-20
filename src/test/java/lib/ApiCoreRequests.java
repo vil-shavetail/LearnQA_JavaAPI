@@ -62,7 +62,27 @@ public class ApiCoreRequests {
                 .filter(new AllureRestAssured())
                 .header("x-csrf-token", header)
                 .cookie("auth_sid", cookie)
-                .get("https://playground.learnqa.ru/api/user/" + userId)
+                .get(url + userId)
+                .andReturn();
+    }
+
+    @Step("Make a PUT-request to edit user details by authorized user")
+    public Response makeAnEditUserDetailsRequest(String url, String header, String cookie, Map<String, String> editData, int userId) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                .body(editData)
+                .put(url + userId)
+                .andReturn();
+    }
+
+    @Step("Make a PUT-request to edit user details by not authorized user")
+    public Response makeAnEditUserDetailsRequestByNotAuthorizedUser(String url, Map<String, String> editData, int userId) {
+        return given()
+                .filter(new AllureRestAssured())
+                .body(editData)
+                .put(url + userId)
                 .andReturn();
     }
 }
