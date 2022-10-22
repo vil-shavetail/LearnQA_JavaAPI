@@ -85,4 +85,14 @@ public class ApiCoreRequests {
                 .put(url + userId)
                 .andReturn();
     }
+
+    @Step("Delete user by id, must be logged in as this user")
+    public Response makeDeleteUserRequest(String url, String header, String cookie, int userId) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header("x-csrf-token", header)
+                .cookie("auth_sid", cookie)
+                .delete(url + userId)
+                .andReturn();
+    }
 }
