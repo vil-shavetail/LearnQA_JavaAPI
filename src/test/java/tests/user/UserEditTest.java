@@ -1,8 +1,6 @@
-package tests;
+package tests.user;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
@@ -22,6 +20,7 @@ public class UserEditTest extends BaseTestCase {
 
     @Description("This test successfully update user detail fields")
     @DisplayName("Test positive")
+    @Owner("Ethan Demidovich")
     @Test
     public void testEditJustCreatedTest() {
         //GENERATE USER
@@ -69,6 +68,7 @@ public class UserEditTest extends BaseTestCase {
 
     @Description("This test checks that user detail fields can't be update by not authorized user ")
     @DisplayName("Test negative, can't update user details by not authorized user")
+    @Owner("Ethan Demidovich")
     @Test
     public void testEditUserDetailsByNotAuthorizedUser() {
         int userId = 46754;
@@ -89,6 +89,9 @@ public class UserEditTest extends BaseTestCase {
 
     @Description("This test checks, that can't update user detail fields for another user by authorized user")
     @DisplayName("Test negative, can't update user detail fields for another user")
+    @Owner("Ethan Demidovich")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link("There must be a Link to a task in Bug tracker")
     @Test
     public void testEditUserDetailsByNotTheSameAuthorizedUser() {
         int expectedFirstUserId = 46793;
@@ -164,6 +167,7 @@ public class UserEditTest extends BaseTestCase {
 
     @Description("This test checks, that can't be update user detail fields with too short value")
     @DisplayName("Test negative, can't update user detail fields with too short value")
+    @Owner("Ethan Demidovich")
     @Test
     public void testEditUserEmailFieldWithIncorrectEmailValue() {
         String emailNewValue = "learnqa20221020170727example.com";
@@ -200,6 +204,7 @@ public class UserEditTest extends BaseTestCase {
 
     @Description("This test checks, that request return error about invalid email format ")
     @DisplayName("Test negative, can't update user email with incorrect email value")
+    @Owner("Ethan Demidovich")
     @Test
     public void testEditUserFirstNameFieldWithTooSmallValue() {
         String firstNameNewValue = "Q";

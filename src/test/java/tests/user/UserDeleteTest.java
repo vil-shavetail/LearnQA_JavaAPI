@@ -1,8 +1,6 @@
-package tests.hello;
+package tests.user;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
@@ -23,6 +21,7 @@ public class UserDeleteTest extends BaseTestCase {
 
     @Description("This test check's that early created user successfully delete user")
     @DisplayName("Test positive, successfully delete early created user")
+    @Owner("Ethan Demidovich")
     @Test
     public void testDeleteEarlyCreatedUserTest() {
         //GENERATE USER
@@ -70,6 +69,7 @@ public class UserDeleteTest extends BaseTestCase {
 
     @Description("This test check's that system user with ID=2 can't be delete")
     @DisplayName("Test positive, can't be delete system user with ID=2")
+    @Owner("Ethan Demidovich")
     @Test
     public void testTryToDeleteSystemUser() {
         //LOGIN
@@ -110,6 +110,9 @@ public class UserDeleteTest extends BaseTestCase {
 
     @Description("This test check's this test check's successfully delete not the same user as authorized")
     @DisplayName("Test negative, try to delete not the same user as authorized")
+    @Severity(SeverityLevel.CRITICAL)
+    @Owner("Ethan Demidovich")
+    @Flaky()
     @Test
     public void testTryToDeleteNotTheSameUserAsAuthorized() {
         //GENERATE FIRST USER

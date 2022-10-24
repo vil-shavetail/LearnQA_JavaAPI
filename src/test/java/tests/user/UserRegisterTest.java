@@ -1,9 +1,9 @@
-package tests;
+package tests.user;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.RestAssured;
+import io.qameta.allure.Owner;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
@@ -24,6 +24,7 @@ public class UserRegisterTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
     @Description("This test checks that can't create user with already used email ")
     @DisplayName("Test negative create user with already used email")
+    @Owner("Ethan Demidovich")
     @Test
     public void testCreateUserWithExistingEmail() {
         String email = "vinkotov@example.com";
@@ -42,6 +43,7 @@ public class UserRegisterTest extends BaseTestCase {
 
     @Description("This test successfully create user")
     @DisplayName("Test positive create user")
+    @Owner("Ethan Demidovich")
     @Test
     public void testCreateUserSuccessfully() {
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -55,6 +57,7 @@ public class UserRegisterTest extends BaseTestCase {
 
     @Description("This test checks that can't create user with incorrect email ")
     @DisplayName("Test negative create user with incorrect email")
+    @Owner("Ethan Demidovich")
     @Test
     public void testCreateUserWithIncorrectEmail() {
         String incorrectEmail = "vinkotovexample.com";
@@ -72,6 +75,7 @@ public class UserRegisterTest extends BaseTestCase {
 
     @Description("This test checks that can't create user with too short username field")
     @DisplayName("Test negative create user with too short username field")
+    @Owner("Ethan Demidovich")
     @Test
     public void testCreateUserWithTooShortUserNameField() {
         String username = "l";
@@ -89,6 +93,7 @@ public class UserRegisterTest extends BaseTestCase {
 
     @Description("This test checks that can't create user with too long username field ")
     @DisplayName("Test negative create user with too long username field")
+    @Owner("Ethan Demidovich")
     @Test
     public void testCreateUserWithTooLongUserNameField() {
         String username = "lafafafafafffafafafafaafafafafafa" +
@@ -121,6 +126,7 @@ public class UserRegisterTest extends BaseTestCase {
 
     @Description("This test checks that can't create user with missed fields ")
     @DisplayName("Test negative create user with missed field")
+    @Owner("Ethan Demidovich")
     @ParameterizedTest
     @ValueSource(strings = {"email", "password", "username", "firstName", "lastName"})
     public void testCreateUserWithMissedField(String field) {

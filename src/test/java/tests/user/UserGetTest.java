@@ -1,8 +1,9 @@
-package tests;
+package tests.user;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
@@ -19,7 +20,8 @@ public class UserGetTest extends BaseTestCase {
 
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
     @Description("This test checks that response return only username for request with only user_id field and not authorized user")
-    @DisplayName("Test negative")
+    @DisplayName("Test negative, response return only username without authorization")
+    @Owner("Ethan Demidovich")
     @Test
     public void testGetUserDataNotAuth() {
         int userId = 2;
@@ -34,7 +36,8 @@ public class UserGetTest extends BaseTestCase {
     }
 
     @Description("This test successfully return user details for authorized user")
-    @DisplayName("Test positive")
+    @DisplayName("Test positive, successfully return user details")
+    @Owner("Ethan Demidovich")
     @Test
     public void testGetUserDetailsAuthAsSameUser() {
         Map<String, String> authData = new HashMap<>();
@@ -56,7 +59,8 @@ public class UserGetTest extends BaseTestCase {
     }
 
     @Description("This test checks that response return only username for request with authorized user and with user_id from not authorized user")
-    @DisplayName("Test negative")
+    @DisplayName("Test negative, response return only username for user is not the same as authorized user")
+    @Owner("Ethan Demidovich")
     @Test
     public void testGetUserDetailsAuthorizedUserWithNotTheSameUserId() {
         Map<String, String> authData = new HashMap<>();
