@@ -91,7 +91,8 @@ public class UserEditTest extends BaseTestCase {
     @DisplayName("Test negative, can't update user detail fields for another user")
     @Owner("Ethan Demidovich")
     @Severity(SeverityLevel.CRITICAL)
-    @Link("There must be a Link to a task in Bug tracker")
+    @Link("https://docs.qameta.io/allure-report/?ysclid=l9mhrs66ts374312462#_junit_5")
+    @Issue("BUG-1321")
     @Test
     public void testEditUserDetailsByNotTheSameAuthorizedUser() {
         int expectedFirstUserId = 46793;
